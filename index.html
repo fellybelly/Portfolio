@@ -74,14 +74,16 @@
             <span class="nowrap"><button class="ix" data-ix="poly" type="button">polymer&nbsp;physics</button>,</span>
             and
             <span class="nowrap"><button class="ix" data-ix="waste" type="button">waste&nbsp;management</button>.</span>
+          </p>
         </div>
 
         <div class="hero__right">
           <div class="hero__viz reveal">
-            <!-- five plates, two areas carrying two each — see FIGS in main.js -->
+            <!-- six plates: ML carries three, Waste two, Polymer one — see FIGS in main.js -->
             <div class="hero__vizstage">
               <canvas class="vz" data-viz="node" aria-hidden="true"></canvas>
               <canvas class="vz" data-viz="fbed" aria-hidden="true"></canvas>
+              <canvas class="vz" data-viz="cadf" aria-hidden="true"></canvas>
               <canvas class="vz" data-viz="rings" aria-hidden="true"></canvas>
               <canvas class="vz" data-viz="hyper" aria-hidden="true"></canvas>
               <canvas class="vz" data-viz="ferm" aria-hidden="true"></canvas>
@@ -92,27 +94,31 @@
             <span class="hero__vizmark hero__vizmark--br" aria-hidden="true"></span>
           </div>
 
-          <!-- ONE clickable segment per figure (five), grouped under the three topic
-               labels: --n is the group's figure count, so every segment ends up the
-               same width and the strip reads as a five-part scale. The countdown
-               cursor runs on whichever segment is live. -->
+          <!-- ONE clickable segment per figure (six), grouped under the three topic
+               labels: the label row is a 3fr 1fr 2fr grid matching how many figures
+               each area owns, so every segment ends up the same width and the strip
+               reads as a six-part scale. The countdown cursor runs on whichever
+               segment is live. -->
           <div class="scs reveal" id="showcase">
             <div class="scs__dots">
               <div class="scs__segs" role="tablist" aria-label="Choose a figure">
                 <button class="scs__seg is-active" data-fig="0" type="button" role="tab"
-                  aria-label="Figure 01 — Neural ODE"><i></i></button>
+                  aria-label="Figure 01 — Physics-informed neural ODE"><i></i></button>
                 <button class="scs__seg" data-fig="1" type="button" role="tab"
                   aria-label="Figure 02 — Fluidised bed, CFD"><i></i></button>
                 <button class="scs__seg" data-fig="2" type="button" role="tab"
-                  aria-label="Figure 03 — Interlocking rings"><i></i></button>
+                  aria-label="Figure 03 — Computer-aided design formulation"><i></i></button>
                 <button class="scs__seg" data-fig="3" type="button" role="tab"
-                  aria-label="Figure 04 — Hyperspectral sorting"><i></i></button>
+                  aria-label="Figure 04 — Interlocking rings"><i></i></button>
                 <button class="scs__seg" data-fig="4" type="button" role="tab"
-                  aria-label="Figure 05 — Lactic-acid fermenter"><i></i></button>
+                  aria-label="Figure 05 — Hyperspectral sorting"><i></i></button>
+                <button class="scs__seg" data-fig="5" type="button" role="tab"
+                  aria-label="Figure 06 — Lactic-acid fermenter"><i></i></button>
               </div>
-              <!-- the labels get EQUAL thirds and are aligned outward (left / centre /
-                   right), so the three sit as far apart as the strip allows. Sized to
-                   the segment groups instead, the middle and right labels crowded. -->
+              <!-- each label is centred over the segments its area actually owns —
+                   ML 01–03, Polymer 04, Waste 05–06 — so the row is a 3fr 1fr 2fr
+                   grid. It stays a SEPARATE element from the segment row, or the two
+                   constrain each other's spacing (see CLAUDE.md). -->
               <div class="scs__labs" aria-hidden="true">
                 <span class="scs__lab is-active">Machine Learning &amp; Computation</span>
                 <span class="scs__lab">Polymer Physics</span>
@@ -148,17 +154,15 @@
            annotated drawing furniture rather than an image floating in the margin -->
             <div class="about__plate reveal">
               <i class="about__plate-rule" aria-hidden="true"></i>
-              <!-- swap the whole .about__photo for <img class="about__photo" src="…" alt="Felicia Tan"> when a real photo is ready -->
-              <figure class="about__photo" role="img" aria-label="Portrait of Felicia Tan — placeholder">
-                <!-- an empty plate drawn the way a drawing sheet marks one: a fine field,
-             corner-to-corner diagonals, and a registration target at centre -->
-                <span class="about__photo-field" aria-hidden="true"></span>
-                <span class="about__photo-reg" aria-hidden="true"></span>
-                <figcaption class="about__photo-cap"><span>Felicia&nbsp;Tan</span><span
-                    class="about__photo-tag">Replace</span></figcaption>
-                <span class="about__photo-fig" aria-hidden="true">FIG · 00</span>
-                <!-- the plate's aspect, set opposite FIG · 00 so the top edge reads as a pair -->
-                <span class="about__photo-dim" aria-hidden="true">4:5</span>
+              <!-- the portrait sits INSIDE the drafted plate: the mat, crop marks,
+                   caption strip and corner tags are the plate's own furniture and
+                   stay whatever the picture is. `object-position` frames the face —
+                   see .about__photo-img for how the value is derived. -->
+              <figure class="about__photo">
+                <img class="about__photo-img" src="img/Felicia Tan.jpg"
+                  alt="Felicia Tan at her graduation, holding a bouquet" width="1280" height="960"
+                  loading="lazy" decoding="async">
+                <figcaption class="about__photo-cap"><span>Felicia&nbsp;Tan</span></figcaption>
               </figure>
             </div>
           </div>
@@ -167,22 +171,42 @@
             <div class="ledger__row reveal">
               <div class="ledger__h">Education</div>
               <div class="ledger__b">
-                <!-- three tiers per entry — degree with its DATES set out to the
-                     right, then the institution, then the remaining particulars in
-                     small mono. Run together on one line (degree | specialisation |
-                     second major | years) they read as an unbroken string. -->
+                <!-- Three tiers per entry, and NOTHING is drawn between the two
+                     entries (see the CSS — five separating marks have been tried and
+                     rejected). The degree line is a drafted LEADER: the award code in
+                     the live accent, the field of study in the display face, a dotted
+                     rule running out across the measure, and the YEARS on the far
+                     right where they belong. Beneath it the institution, then the
+                     particulars in small mono. -->
                 <ul class="rows rows--split">
                   <li>
-                    <i class="rows__when">2026 &mdash; 2027</i>
-                    <span>M.Eng. Chemical Engineering</span>
+                    <span>
+                      <em class="rows__code">M.Eng.</em>
+                      <b>Chemical Engineering</b>
+                      <i class="rows__leader" aria-hidden="true"></i>
+                      <i class="rows__when">2026 &mdash; Present</i>
+                    </span>
                     <em>National University of Singapore</em>
                   </li>
                   <li>
-                    <i class="rows__when">2022 &mdash; 2026</i>
-                    <span>B.Eng. Chemical Engineering</span>
+                    <span>
+                      <em class="rows__code">B.Eng.</em>
+                      <b>Chemical Engineering</b>
+                      <i class="rows__leader" aria-hidden="true"></i>
+                      <i class="rows__when">2022 &mdash; 2026</i>
+                    </span>
                     <em>National University of Singapore</em>
-                    <i class="rows__meta">GPA 4.8 / 5.0 · Specialisation in Process Engineering · Second Major in
-                      Innovation &amp; Design</i>
+                    <em class="rows__award">Kathaleen Koh Seok Hoon Scholarship</em>
+                    <i class="rows__meta"><span>GPA 4.8 / 5.0</span><span>Specialisation in Process
+                        Engineering</span><span>Second Major in Innovation &amp; Design</span></i>
+                  </li>
+                  <li>
+                    <span>
+                      <em class="rows__code">GCE 'A' Levels</em>
+                      <i class="rows__leader" aria-hidden="true"></i>
+                      <i class="rows__when">2021 &mdash; 2022</i>
+                    </span>
+                    <em>Hwa Chong Institution</em>
                   </li>
                 </ul>
               </div>
@@ -202,7 +226,7 @@
               <div class="ledger__b">
                 <div class="chips">
                   <span>Classical Music</span><span>Volunteering</span>
-                  <span>Baking</span><span>Long-Distance Running</span>
+                  <span>Baking</span>
                 </div>
               </div>
             </div>
@@ -249,51 +273,80 @@
                 <span class="rx__ghost" id="rxGhost" aria-hidden="true">01</span>
               </div>
 
+              <!-- Every chapter carries the SAME three-part structure, in this order:
+                   project title → description → collaborator → publication plate.
+                   The plate (and the collaborator line when a chapter has no plate)
+                   is flushed to the BOTTOM of the column by the CSS, so Paper /
+                   Journal / Status sits on one line across every chapter instead of
+                   floating at whatever height the copy happens to end. A project
+                   without a paper simply omits the plate. -->
               <div class="rx__body">
                 <article class="rxt is-active" data-chapter="node">
-                  <p>Chemisorption is widely used to capture CO₂ from industrial gas streams, 
-                    but predicting its behaviour over time remains challenging. In this work, 
-                    Physics-informed Neural Ordinary Differential Equation (Neural ODE) 
-                    models were developed to predict CO₂ absorption and chemical consumption in a packed-bed system. 
-                    Additionally, physics guided-enhancements were incorporated into the models through 
-                    soft constraints in the training loss function and additional collocation points, 
-                    enabling the models to learn from both experimental data and governing physical behaviour. 
+                  <p class="rxt__proj">Physics-Informed Machine Learning</p>
+                  <p>Chemisorption is widely used to capture CO₂ from industrial gas streams,
+                    but predicting its behaviour over time remains challenging. In this work,
+                    Physics-informed Neural Ordinary Differential Equation (Neural ODE)
+                    models were developed to predict CO₂ absorption and chemical consumption in a packed-bed system.
+                    Additionally, physics guided-enhancements were incorporated into the models through
+                    soft constraints in the training loss function and additional collocation points,
+                    enabling the models to learn from both experimental data and governing physical behaviour.
                     Rigorous data ablation and statistical significance tests were conducted as well.
                   </p>
-                  <p class="rorg"><span class="rorg__k">In collaboration with</span><span class="rorg__v">National University of Singapore</span></p>
+                  <p class="rorg"><span class="rorg__k">In collaboration with</span><span class="rorg__v">National
+                      University of Singapore</span></p>
                   <div class="rpaper">
                     <div class="rpaper__row"><span class="rpaper__k">Paper</span>
-                      <p class="rpaper__t">PNODE for NaOH-CO2 Chemisorption Applications</em></p>
+                      <p class="rpaper__t">PNODE for NaOH-CO2 Chemisorption Applications</p>
                     </div>
                     <div class="rpaper__row"><span class="rpaper__k">Journal</span>
                       <p class="rpaper__v">Industrial &amp; Engineering Chemistry Research</p>
                     </div>
                     <div class="rpaper__row"><span class="rpaper__k">Status</span>
-                      <p class="rpaper__v rpaper__st" data-state="review"><i aria-hidden="true"></i>Under Peer Review</p>
+                      <p class="rpaper__v rpaper__st" data-state="review"><i aria-hidden="true"></i>Under Peer Review
+                      </p>
                     </div>
                   </div>
                 </article>
 
                 <article class="rxt" data-chapter="fbed">
-                  <p>Fluidized beds are widely used across industries, yet their behaviour with 
-                    non-Newtonian fluids remains less understood than that of conventional Newtonian 
-                    systems. Computational Fluid Dynamics (CFD), specifically 
-                    ANSYS Fluent was employed, to model the complex interactions between solid particles and 
-                    non-Newtonian fluids. The study investigates fluidization behaviour, including bed 
-                    expansion, voidage and heat transfer, with a particular focus on understanding how 
+                  <p class="rxt__proj">Computational Fluid Dynamics</p>
+                  <p>Fluidized beds are widely used across industries, yet their behaviour with
+                    non-Newtonian fluids remains less understood than that of conventional Newtonian
+                    systems. Computational Fluid Dynamics (CFD), specifically
+                    ANSYS Fluent was employed, to model the complex interactions between solid particles and
+                    non-Newtonian fluids. The study investigates fluidization behaviour, including particle velocity,
+                    voidage and heat transfer, with a particular focus on understanding how
                     flow pulsation influences heat transfer performance.</p>
-                  <p class="rorg"><span class="rorg__k">In collaboration with</span><span class="rorg__v">National University of Singapore</span></p>
+                  <p class="rorg"><span class="rorg__k">In collaboration with</span><span class="rorg__v">National
+                      University of Singapore</span></p>
+                </article>
+
+                <!-- no publication yet, so this chapter simply omits the .rpaper
+                     plate — the collaborator line takes its place at the bottom -->
+                <article class="rxt" data-chapter="cadf">
+                  <p class="rxt__proj">Computer-Aided Design Formulation</p>
+                  <p>Designing formulations that satisfy a desired specification typically requires extensive experimental screening, 
+                    often through an exhausive full-factorial approach. Such methods can be highly resource- and time-intensive, 
+                    particularly when multiple interacting variables must be considered. Machine learning-based optimisation offers 
+                    a more efficient alternative by learning from previously conducted trials and to propose the next most promising set of parameters, 
+                    progressively guiding the search towards the desired outcome more quickly. Colour formulation provides one example, where pigment ratios 
+                    can be iteratively adjusted to achieve a target colour. This work has also been extended to precise temperature controls systems 
+                    where set-ups are heat sensitive</p>
+                  <p class="rorg"><span class="rorg__k">In collaboration with</span><span class="rorg__v">National
+                      University of Singapore</span></p>
                 </article>
 
                 <article class="rxt" data-chapter="rings">
-                  <p>This study investigates the dynamics of two interlocked catenane rings 
-                    under Brownian motion and elongational flow. Their relaxation behaviour and 
-                    response to flow are characterised using relaxation time and the Weissenberg 
-                    number, with comparisons made against linear polymer chains and single-ring 
-                    systems. The work explores how polymer topology and interlocking influence 
+                  <p class="rxt__proj">Catenane Ring Dynamics</p>
+                  <p>This study investigates the dynamics of two interlocked catenane rings
+                    under Brownian motion and elongational flow. Their relaxation behaviour and
+                    response to flow are characterised using relaxation time and the Weissenberg
+                    number, with comparisons made against linear polymer chains. The work explores how polymer topology
+                    and interlocking influence
                     molecular motion and deformation under different flow conditions.
                   </p>
-                  <p class="rorg"><span class="rorg__k">In collaboration with</span><span class="rorg__v">National University of Singapore</span></p>
+                  <p class="rorg"><span class="rorg__k">In collaboration with</span><span class="rorg__v">National
+                      University of Singapore</span></p>
                   <div class="rpaper">
                     <div class="rpaper__row"><span class="rpaper__k">Paper</span>
                       <p class="rpaper__t">Review for polymer trapping in microfluidics</p>
@@ -308,35 +361,50 @@
                 </article>
 
                 <article class="rxt" data-chapter="hyper">
-                  <p>Characterising the composition of polymer waste is essential for improving 
-                    plastic recycling and enabling more effective material recovery. This work 
-                    combines hyperspectral imaging (HSI) with deep learning to simultaneously 
-                    identify and quantify multiple additives in polypropylene-based polymer blends. 
-                    The approach enables the detection of components such as polyethylene, talc and 
-                    flame retardants from their spectral signatures, while predicting their concentrations 
+                  <p class="rxt__proj">Hyperspectral Imaging &amp; Deep Learning</p>
+                  <p>Characterising the composition of polymer waste is essential for improving
+                    plastic recycling and enabling more effective material recovery. This work
+                    combines hyperspectral imaging (HSI) with deep learning to simultaneously
+                    identify and quantify multiple additives in polypropylene-based polymer blends.
+                    The approach enables the detection of components such as polyethylene, talc and
+                    flame retardants from their spectral signatures, while predicting their concentrations
                     and presence within a single framework.</p>
-                  <p class="rorg"><span class="rorg__k">In collaboration with</span><span class="rorg__v">A*STAR — SIMTech</span></p>
+                  <p class="rorg"><span class="rorg__k">In collaboration with</span><span class="rorg__v">A*STAR —
+                      SIMTech</span></p>
                   <div class="rpaper">
                     <div class="rpaper__row"><span class="rpaper__k">Paper</span>
-                      <p class="rpaper__t">Deep Learning-Based Hyperspectral Imaging for the Identification and Quantification of Multi-Component Polypropylene Blends</em></p>
+                      <p class="rpaper__t">Deep Learning-Based Hyperspectral Imaging for the Identification and
+                        Quantification of Multi-Component Polypropylene Blends</p>
                     </div>
                     <div class="rpaper__row"><span class="rpaper__k">Journal</span>
                       <p class="rpaper__v">Waste Management</p>
                     </div>
                     <div class="rpaper__row"><span class="rpaper__k">Status</span>
-                      <p class="rpaper__v rpaper__st" data-state="review"><i aria-hidden="true"></i>Under Peer Review</p>
+                      <p class="rpaper__v rpaper__st" data-state="review"><i aria-hidden="true"></i>Under Peer Review
+                      </p>
+                    </div>
+                  </div>
+                  <div class="rpaper">
+                    <div class="rpaper__row"><span class="rpaper__k">Paper</span>
+                      <p class="rpaper__t">AI-enabled Profiling with Hyperspectral Imaging</p>
+                    </div>
+                    <div class="rpaper__row"><span class="rpaper__k">Conference</span>
+                      <p class="rpaper__v">The 12th World Sustainability Forum</p>
+                    </div>
                     </div>
                   </div>
                 </article>
 
                 <article class="rxt" data-chapter="ferm">
-                  <p>This work explores the conversion of food waste into a valuable feedstock 
-                    for lactic acid production. Moisture and pathogens are first removed using a 
-                    treatment technology developed by Cora Environment, followed by the extraction 
-                    of glucose from the processed material. The glucose-rich substrate is then 
-                    fermented using Lactobacillus helveticus to produce lactic acid, demonstrating 
+                  <p class="rxt__proj">Food-Waste Valorisation</p>
+                  <p>This work explores the conversion of food waste into a valuable feedstock
+                    for lactic acid production. Moisture and pathogens are first removed using a
+                    treatment technology developed by Cora Environment, followed by the extraction
+                    of glucose from the processed material. The glucose-rich substrate is then
+                    fermented using Lactobacillus helveticus to produce lactic acid, demonstrating
                     a potential pathway for transforming food waste into higher-value bioproducts.</p>
-                  <p class="rorg"><span class="rorg__k">In collaboration with</span><span class="rorg__v">Cova Environment</span></p>
+                  <p class="rorg"><span class="rorg__k">In collaboration with</span><span class="rorg__v">Cova
+                      Environment</span></p>
                 </article>
               </div>
             </div>
@@ -353,58 +421,55 @@
           <article class="job reveal">
             <span class="job__no">01</span>
             <div class="job__role">
-              <h3>Chemometric Intern <span>· A*STAR (SIMTech)</span></h3>
-              <p>Built and curated near-infrared (NIR), Fourier-transform infrared (FTIR) and melt flow
-                index databases covering the different types of plastic waste, recording for
-                every sample both its polymer identity and the quantity of each common additive it carried.
-                Holding all three measurements on one consistent footing is what gave model training a
-                well-characterised dataset.</p>
+              <div class="job__head">
+                <h3>A*STAR (SIMTech) <span>Chemometric Intern</span></h3>
+                <p class="job__meta"><time>May 2025 — Aug 2025</time></p>
+              </div>
+              <p>Built and curated near-infrared (NIR), Fourier-transform infrared (FTIR) and melt flow index databases
+                for plastic waste, capturing polymer identity and additive content to provide a consistent,
+                well-characterised dataset for model training.</p>
               <p>Researched and benchmarked a range of dimensionality reduction tools and machine learning
                 models against that dataset, comparing how each behaved where the signatures of chemically
-                similar polymers overlap — the region that decides whether a sorting call is right or wrong —
-                then tuning the pipeline to optimise classification accuracy.</p>
+                similar polymers overlap.</p>
               <p>Key Achievements: Supported the development of predictive models achieving R² values of
                 0.925–0.979 with RMSE values of 0.677–1.785 wt% across the additive concentrations covered by
-                the database — accurate enough for the spectra to stand in for a separate composition
-                measurement.</p>
+                the database</p>
             </div>
-            <div class="job__meta"><span>Industry</span><time>May 2025 — Aug 2025</time></div>
           </article>
           <article class="job reveal">
             <span class="job__no">02</span>
             <div class="job__role">
-              <h3>R&D Bioengineer Intern <span>· Cellivate Technologies</span></h3>
-              <p>Delivered comprehensive market and laboratory research findings on exosome technology as a
-                replacement for fetal bovine serum, pairing a survey of what the commercial landscape offered
-                with bench work of my own on how those alternatives performed in culture, so the case for
-                animal-free products rested on measured behaviour as much as on cost.</p>
-              <p>Presented synthetic and natural polymer alternatives for replacing antibiotics in cell
-                culture, setting out for each class of material where it performed and — just as usefully —
-                where it did not, so the comparison could be acted on rather than merely noted; the findings
-                were taken up internally and initiated a new project for further research.</p>
+              <div class="job__head">
+                <h3>Cellivate Technologies <span>R&D Bioengineer Intern</span></h3>
+                <p class="job__meta"><time>May 2024 — Aug 2024</time></p>
+              </div>
+              <p>Delivered market and laboratory research on exosome technology as a replacement for
+                fetal bovine serum, combining commercial landscape analysis with bench testing to evaluate
+                animal-free alternatives based on both performance and cost.</p>
+              <p>Presented synthetic and natural polymer alternatives to antibiotics in cell culture,
+                highlighting their strengths and limitations; the findings informed internal decisions and
+                initiated a new research project.</p>
               <p>Key Achievements: Developed novel natural biopolymer microcarriers with the R&amp;D team,
-                achieving a twofold improvement in cell growth over the synthetic commercial microcarriers
-                they were benchmarked against — a natural material beating the incumbent on its own metric.</p>
+                achieving a twofold improvement in cell growth over the synthetic commercial microcarriers.</p>
             </div>
-            <div class="job__meta"><span>Industry</span><time>May 2024 — Aug 2024</time></div>
           </article>
           <article class="job reveal">
             <span class="job__no">03</span>
             <div class="job__role">
-              <h3> Crop Protection Scientist Intern <span>· Archisen Farms</span></h3>
+              <div class="job__head">
+                <h3>Archisen Farms <span>Crop Protection Scientist Intern</span></h3>
+                <p class="job__meta"><time>Jan 2022 — Mar 2022</time></p>
+              </div>
               <p>Conducted comprehensive market research on mitigating the pest load issues affecting
                 Archisen’s commercial farm, assessing each control strategy against the constraints of an
-                indoor growing environment, where the usual field measures are unsuitable — which led to a
-                project utilising harmless pests to eliminate harmful insects.</p>
+                indoor growing environment, where the usual field measures are unsuitable.</p>
               <p>Oversaw plant growth on a daily basis and enhanced the quality of the harvested produce
-                through the respective chemical-based measures, tracking each crop through its full cycle so every
-                intervention was judged on the outcome it produced rather than on expectation — which
+                through the respective chemical-based measures, tracking each crop through its full cycle, which
                 resulted in produce of higher nutritional value.</p>
               <p>Key Achievements: Presented scientific research on further possible pest mitigation
                 alternatives, including non-chemical approaches such as sound waves, extending the farm's
                 options beyond both chemical treatment and biological control.</p>
             </div>
-            <div class="job__meta"><span>Industry</span><time>Jan 2022 — Mar 2022</time></div>
           </article>
         </div>
       </div>
@@ -423,8 +488,7 @@
                  specimen strip) kept OVER it so the award still reads as a drafted
                  plate rather than as a bare snapshot -->
             <div class="award__media award__media--photo">
-              <img class="award__img award__img--ned"
-                src="img/The Institution of Engineers Merit Prize 2025.png"
+              <img class="award__img award__img--ned" src="img/The Institution of Engineers Merit Prize 2025.png"
                 alt="Felicia Tan with her team receiving the Institution of Engineers Singapore Merit Prize, 2025"
                 loading="lazy" decoding="async" width="1105" height="729">
               <!-- specimen strip — the plate's own mini title-block. The YEAR now
@@ -440,15 +504,14 @@
                    appears exactly once across the plate and the citation -->
               <p class="award__by">The Institution of Engineers, Singapore</p>
               <h3>Merit Prize <em>Top 10</em></h3>
-              <p>Decontaminated food waste through oxygen radicalisation, purified to extract carbohydrates, underwent
+              <p class="award__desc">Decontaminated food waste through oxygen radicalisation, purified to extract carbohydrates, underwent
                 bacterial fermentation to convert carbohydrates into lactic acid, and subsequently purified to obtain
                 pure lactic acid using membrane filtration</p>
             </div>
           </article>
           <article class="award reveal">
             <div class="award__media award__media--photo">
-              <img class="award__img award__img--hh"
-                src="img/Yong Yoo Lin School of Medicine Innovation Prize 2024.png"
+              <img class="award__img award__img--hh" src="img/Yong Yoo Lin School of Medicine Innovation Prize 2024.png"
                 alt="Felicia Tan with her team holding the HealthHack 2024 second-prize cheque at the Yong Loo Lin School of Medicine"
                 loading="lazy" decoding="async" width="1050" height="753">
               <span class="award__strip" aria-hidden="true">
@@ -458,7 +521,7 @@
             <div class="award__content">
               <p class="award__by">Yong Yoo Lin School of Medicine</p>
               <h3>Innovation Prize <em>Runner-up</em></h3>
-              <p>Designed a plastic waste segregation hardware and software image recognition system that can separate
+              <p class="award__desc">Designed a plastic waste segregation hardware and software image recognition system that can separate
                 common plastics found in medical waste.</p>
             </div>
           </article>
